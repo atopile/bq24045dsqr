@@ -1,6 +1,6 @@
 ato-version: ^0.2.0
 builds:
   default:
-    entry: elec/src/bq24045dsqr.ato:Bq24045dsqr
+    entry: elec/src/bq24045dsqr.ato:BQ24045DSQR
 dependencies:
 - generics
