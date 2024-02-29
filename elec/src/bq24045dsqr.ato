@@ -38,6 +38,7 @@ module BQ24045DSQR:
     ic = new _BQ24045DSQR
     power_in = new Power
     power_in ~ ic.power_in
+    charge_current: current
 
     power_batt = new Power
     power_batt ~ ic.power_out
@@ -60,8 +61,11 @@ module BQ24045DSQR:
     iset_resistor = new Resistor
     iset_resistor.1 ~ ic.ISET
     iset_resistor.2 ~ ic.VSS
-    iset_resistor.value = 540ohm +/- 20%
+    # iset_resistor.value = 540ohm +/- 20%
     iset_resistor.package = "0402"
+
+    assert 540V / iset_resistor.value within charge_current
+    assert iset_resistor.value within 540ohm to 10.8kohm
 
     #ISET2 - High: input current 500mA max, Low: input current 100mA max
     ic.ISET2 ~ ic.IN # set to 500mA
@@ -69,6 +73,8 @@ module BQ24045DSQR:
     # Leds or pullups - both are optional,
     # you need pullups if you want to read the status of the IC
     power_good_led = new LEDIndicatorGreen
+    power_good_led.v_in = 5V +/- 10%
+    power_good_led.current = 0.5mA to 2mA
     power_good_led.input ~ ic.OUT
     power_good_led.gnd ~ ic.PG
 
@@ -77,6 +83,8 @@ module BQ24045DSQR:
     # power_good_pullup.2 ~ ic.OUT
 
     charge_led = new LEDIndicatorBlue
+    charge_led.v_in = 5V +/- 10%
+    charge_led.current = 0.5mA to 2mA
     charge_led.input ~ ic.OUT
     charge_led.gnd ~ ic.CHG
 
