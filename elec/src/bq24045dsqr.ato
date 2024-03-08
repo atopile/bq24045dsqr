@@ -46,7 +46,7 @@ module BQ2404XDSQR:
     iset_resistor = new Resistor
     iset_resistor.1 ~ ic.ISET
     iset_resistor.2 ~ ic.VSS
-    iset_resistor.value = 600ohm +/- 2%
+    # iset_resistor.value = 600ohm +/- 2%
     iset_resistor.package = "0402"
 
     # default
