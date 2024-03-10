@@ -58,6 +58,9 @@ module BQ2404XDSQR:
     #ISET2 - High: input current 500mA max, Low: input current 100mA max
     ic.ISET2 ~ ic.IN # set to 500mA
 
+    charge_status.io ~ ic.CHG
+    charge_status.gnd ~ power_in.gnd
+
     # Optional status LEDs
     # you need pullups if you want to read the status of the IC
     # power_good_led = new LEDIndicatorGreen
